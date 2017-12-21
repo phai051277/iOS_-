@@ -64,4 +64,16 @@ class ListViewController: UITableViewController, XMLParserDelegate {
     func parserDidEndDocument(_ parser: XMLParser) {
         self.tableView.reloadData()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // タップしたセルのindexPathを取得
+        if let indexPath = self.tableView.indexPathForSelectedRow {
+            let item = items[indexPath.row]
+            // segue(ストーリーボード上のインスタンス)
+            // destination(遷移先のビューコントローラ)
+            let controller = segue.destination as! DetailViewController
+            controller.title = item.title
+            controller.link  = item.link
+        }
+    }
 }
